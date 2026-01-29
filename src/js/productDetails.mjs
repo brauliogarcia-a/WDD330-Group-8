@@ -6,8 +6,9 @@ let product = {};
 export default async function productDetails(productId, selector) {
   // use findProductById to get the details for the current product. findProductById will return a promise! use await or .then() to process it
   product = await findProductById(productId);
+  console.log("product", product);
   // once we have the product details we can render out the HTML
-  renderProductDetails();
+  renderProductDetails(product);
   // add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
@@ -39,7 +40,8 @@ function addToCart() {
 //   .getElementById("addToCart")
 //   .addEventListener("click", addToCartHandler);
 
-function renderProductDetails() {
+function renderProductDetails(product) {
+  console.log("product", product);
   document.querySelector("#productName").innerText = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerText =
     product.NameWithoutBrand;
@@ -52,4 +54,5 @@ function renderProductDetails() {
     product.DescriptionHtmlSimple;
   //add the product Id to the add button! 
   document.querySelector("#addToCart").dataset.id = product.Id;
+
 }
