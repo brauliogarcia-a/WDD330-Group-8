@@ -4,9 +4,10 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   // 1. Check if cartItems exists AND is an array
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
+    document.querySelector(".product-list").innerHTML = "<p>Your cart is empty.</p>";
     return; // Stop the function here
   }
-  
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
