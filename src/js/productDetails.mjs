@@ -40,18 +40,16 @@ function addToCart() {
 //   .addEventListener("click", addToCartHandler);
 
 function renderProductDetails() {
-  
-  // document.querySelector("#productName").innerText = product.Brand.Name;
-  // document.querySelector("#productNameWithoutBrand").innerText =
-  //   product.NameWithoutBrand;
-  // document.querySelector("#productImage").src = product.Image;
-  // document.querySelector("#productImage").alt = product.Name;
-  // document.querySelector("#productFinalPrice").innerText = product.FinalPrice;
-  // document.querySelector("#productColorName").innerText =
-  //   product.Colors[0].ColorName;
-  // document.querySelector("#productDescriptionHtmlSimple").innerHTML =
-  //   product.DescriptionHtmlSimple;
-  // document.querySelector("#addToCart").dataset.id = product.Id;
-  // //add the product Id to the add button! this will allow us to add the product to the cart
-
+  document.querySelector("#productName").innerText = product.Brand.Name;
+  document.querySelector("#productNameWithoutBrand").innerText =
+    product.NameWithoutBrand;
+  document.querySelector("#productImage").src = product.Image;
+  document.querySelector("#productImage").alt = product.Name;
+  document.querySelector("#productFinalPrice").innerText = product.FinalPrice;
+  document.querySelector("#productColorName").innerText =
+    product.Colors[0].ColorName;
+  document.querySelector("#productDescriptionHtmlSimple").innerHTML =
+    product.DescriptionHtmlSimple;
+  //add the product Id to the add button! 
+  document.querySelector("#addToCart").dataset.id = product.Id;
 }
