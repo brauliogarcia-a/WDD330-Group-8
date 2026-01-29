@@ -3,4 +3,3 @@ import productDetails from "./productDetails.mjs";
 
 const productId = getParam("product");
 productDetails(productId);
-console.log("productId", productId);

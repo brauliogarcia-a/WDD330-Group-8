@@ -6,12 +6,12 @@ let product = {};
 export default async function productDetails(productId, selector) {
   // use findProductById to get the details for the current product. findProductById will return a promise! use await or .then() to process it
   product = await findProductById(productId);
-  console.log("product", product);
   // once we have the product details we can render out the HTML
   renderProductDetails(product);
   // add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
+
 function addToCart() {
   let cart = getLocalStorage("so-cart");
   if (!Array.isArray(cart)) {
@@ -20,28 +20,8 @@ function addToCart() {
   cart.push(product);
   setLocalStorage("so-cart", product);
 }
-// function addProductToCart(product) {
-//   let cart = getLocalStorage("so-cart");
-//   if (!Array.isArray(cart)) {
-//     cart = [];
-//   }
-//   cart.push(product);
-//   setLocalStorage("so-cart", cart);
-// }
-
-// add to cart button event handler
-// async function addToCartHandler(e) {
-//   const product = await findProductById(e.target.dataset.id);
-//   addProductToCart(product);
-// }
-
-// // add listener to Add to Cart button
-// document
-//   .getElementById("addToCart")
-//   .addEventListener("click", addToCartHandler);
 
 function renderProductDetails(product) {
-  console.log("product", product);
   document.querySelector("#productName").innerText = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerText =
     product.NameWithoutBrand;
@@ -54,5 +34,4 @@ function renderProductDetails(product) {
     product.DescriptionHtmlSimple;
   //add the product Id to the add button! 
   document.querySelector("#addToCart").dataset.id = product.Id;
-
 }
