@@ -51,7 +51,7 @@ header {
 .cart-count {
   position: relative;
   top: -20px;
-  right: 20px;
+  right: -35px;
   background-color: var(--primary-color);
   font-weight: bold;
   color: var(--dark-grey);
