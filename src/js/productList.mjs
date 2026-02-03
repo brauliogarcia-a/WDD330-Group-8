@@ -1,27 +1,52 @@
-import { qs } from "./utils.mjs"; 
-import { getData } from "./productData.mjs";
+import {getData} from "./productData.mjs";
+import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
-    return `
-      <li class="product-card">
+        return `<li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
-          <img src="${product.Image}" alt="${product.Name}" />
-          <h3 class="card__brand">${product.Brand.Name}</h3>
-          <h2 class="card__name">${product.NameWithoutBrand}</h2>
-          <p class="product-card__price">${product.FinalPrice}</p>
-        </a>
-      </li>
-    `;
+        <img src="${product.Image}" alt="${product.Name}" />
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.NameWithoutBrand}</h2>
+        <p class="product-card__price">$${product.FinalPrice}</p></a>
+    </li>`
 }
 
-function renderProductList(products, container) {
-    container.innerHTML = products.map(productCardTemplate).join("");
+// verify that the image exists
+async function isImageValid(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);  
+    img.onerror = () => resolve(false); 
+    img.src = url;
+  });
 }
-export default async function productList(selector, category = "tents") {
+
+// get the list of products
+export default async function productList(selector, category) {
     // get the element we will insert the list into from the selector
-    const container = qs(selector);
-    // get the data from json
+    const el = document.querySelector(selector);
+    
+    // get the list of products 
     const products = await getData(category);
-    // render the list
-    renderProductList(products, container);
+    
+    
+    // array to store valid products
+    const validProducts = [];
+
+    // verify that each product has an image
+    for (const product of products) {
+        
+        // check if the image exists
+        const imageExists = await isImageValid(product.Image);
+
+        if (imageExists) {
+            validProducts.push(product);
+        }
+    }
+
+    // limit the number of products
+    const limitedProducts = validProducts.slice(0, 4);
+    
+    // render out the product list to the element
+    renderListWithTemplate(productCardTemplate, el, limitedProducts);
 }
