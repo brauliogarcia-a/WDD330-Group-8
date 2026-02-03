@@ -18,7 +18,8 @@ function addToCart() {
     cart = [];
   }
   cart.push(product);
-  setLocalStorage("so-cart", product);
+  console.log(cart);
+  setLocalStorage("so-cart", cart);
 }
 
 function renderProductDetails(product) {
