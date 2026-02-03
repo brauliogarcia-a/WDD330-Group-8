@@ -32,3 +32,8 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
+export function updateCartCount() {
+  getLocalStorage('so-cart');
+  const count = getLocalStorage('so-cart').length;
+  document.getElementById('cart-count').innerText = count;
+} 
