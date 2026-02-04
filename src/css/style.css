@@ -215,6 +215,31 @@ button {
   grid-column: 3;
 }
 
+.btn-remove {
+  background-color: var(--primary-color);
+  width: 30px;
+  color: var(--dark-grey);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.7em;
+  font-weight: bold;
+  line-height: 1;
+  transition: background-color 0.3s ease, transform 0.2s;
+  height: 30px;
+  text-align: center;
+  align-content: center;
+  position: relative;
+  top: -300%;
+  right: -450%;
+}
+
+/* Efecto Hover [7] */
+.btn-remove:hover {
+  background-color: #ff0000; 
+  transform: scale(1.1); 
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

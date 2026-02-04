@@ -1,6 +1,7 @@
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
+
 let product = {};
 
 export default async function productDetails(productId, selector) {
@@ -10,6 +11,7 @@ export default async function productDetails(productId, selector) {
   renderProductDetails(product);
   // add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
+  // add a listener to the remove from cart button
 }
 
 function addToCart() {
@@ -28,7 +30,7 @@ function renderProductDetails(product) {
     product.NameWithoutBrand;
   document.querySelector("#productImage").src = product.Image;
   document.querySelector("#productImage").alt = product.Name;
-  document.querySelector("#productFinalPrice").innerText = product.FinalPrice;
+  document.querySelector("#productFinalPrice").innerText = "$" + product.FinalPrice;
   document.querySelector("#productColorName").innerText =
     product.Colors[0].ColorName;
   document.querySelector("#productDescriptionHtmlSimple").innerHTML =
