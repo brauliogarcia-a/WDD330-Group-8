@@ -220,7 +220,6 @@ button {
   width: 30px;
   color: var(--dark-grey);
   border: none;
-  /* padding: 8px 12px; */
   border-radius: 50%;
   cursor: pointer;
   font-size: 0.7em;
@@ -231,8 +230,8 @@ button {
   text-align: center;
   align-content: center;
   position: relative;
-  top: -350%;
-  right: -400%;
+  top: -300%;
+  right: -450%;
 }
 
 /* Efecto Hover [7] */
