@@ -1,6 +1,6 @@
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
-
+import { updateCartCount } from "./utils.mjs";
 
 let product = {};
 
@@ -22,6 +22,7 @@ function addToCart() {
   cart.push(product);
   console.log(cart);
   setLocalStorage("so-cart", cart);
+  updateCartCount();
 }
 
 function renderProductDetails(product) {

@@ -1,5 +1,6 @@
 import productList from "./productList.mjs";
-import { updateCartCount } from "./cart.js";
+import { updateCartCount } from "./utils.mjs";
 
 productList(".product-list", "tents");
 updateCartCount();
+

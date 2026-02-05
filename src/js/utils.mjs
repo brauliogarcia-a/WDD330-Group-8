@@ -40,3 +40,10 @@ export function renderListWithTemplate(
   const htmlString = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlString.join(""));
 }
+
+export function updateCartCount() {
+  console.log("updateCartCount");
+  const cartItems = getLocalStorage("so-cart");
+  const count = cartItems ? cartItems.length : 0;
+  document.querySelector("#cart-count").textContent = count;
+}
