@@ -37,3 +37,25 @@ export function updateCartCount() {
   const count = getLocalStorage('so-cart').length;
   document.getElementById('cart-count').innerText = count;
 } 
+
+async function totalInCart() {
+  const cart = getLocalStorage('so-cart');
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    total += cart[i].FinalPrice;
+  }
+  return total;
+}
+
+async function updateTotal() {
+  const total = await totalInCart();
+  document.getElementById('total').innerText = total;
+  // if there are no items in the cart make total hiden
+  if (total === 0) {
+    document.getElementById('cart-total').style.display = 'none';
+  }
+  else{
+    document.getElementById('cart-total').style.display = 'block';
+  }
+}
+updateTotal();
