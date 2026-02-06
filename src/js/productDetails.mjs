@@ -19,8 +19,19 @@ function addToCart() {
   if (!Array.isArray(cart)) {
     cart = [];
   }
-  cart.push(product);
-  console.log(cart);
+  
+  // Check if the item is already in the cart
+  const existingItem = cart.find((item) => item.Id === product.Id);
+
+  if (existingItem) {
+    // If it exists, increment the quantity
+    existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+  } else {
+    // If it's new, add a Quantity property and push it
+    product.Quantity = 1;
+    cart.push(product);
+  }
+
   setLocalStorage("so-cart", cart);
   updateCartCount();
 }

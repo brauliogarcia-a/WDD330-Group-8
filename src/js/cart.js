@@ -18,7 +18,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <span class="btn-remove" data-id="${item.Id}">X</span>
 </li>`;
@@ -46,8 +46,9 @@ function totalInCart() {
   let total = 0;
  
   for (let i = 0; i < cart.length; i++) {
-    total += cart[i].FinalPrice;
+    total += cart[i].FinalPrice * (cart[i].Quantity || 1);
   }
+  
   return total;
 }
 
