@@ -41,27 +41,30 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlString.join(""));
 }
 
-// export function updateCartCount() {
-//   console.log("updateCartCount");
-//   const cartItems = getLocalStorage("so-cart");
-//   const count = cartItems ? cartItems.length : 0;
-//   document.querySelector("#cart-count").textContent = count;
-// }
+let cartTimeout;
 export function updateCartCount() {
   const cartItems = getLocalStorage('so-cart') || [];
   const cartCountElement = document.getElementById('cart-count');
-  
   const cartIcon = document.querySelector('.cart svg');
 
   if (cartCountElement) {
-    cartCountElement.innerText = cartItems.length;
+    const itemCount = cartItems.length;
+    cartCountElement.innerText = itemCount;
 
     if (cartIcon) {
-      cartIcon.classList.add('animate-cart');
+      clearTimeout(cartTimeout);
 
-      setTimeout(() => {
+      if (itemCount > 0) {
         cartIcon.classList.remove('animate-cart');
-      }, 10000);
+        void cartIcon.offsetWidth; 
+        cartIcon.classList.add('animate-cart');
+
+        cartTimeout = setTimeout(() => {
+          cartIcon.classList.remove('animate-cart');
+        }, 30000);
+      } else {
+        cartIcon.classList.remove('animate-cart');
+      }
     }
   }
 }
