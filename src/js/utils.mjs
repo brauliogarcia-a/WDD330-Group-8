@@ -41,9 +41,27 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlString.join(""));
 }
 
+// export function updateCartCount() {
+//   console.log("updateCartCount");
+//   const cartItems = getLocalStorage("so-cart");
+//   const count = cartItems ? cartItems.length : 0;
+//   document.querySelector("#cart-count").textContent = count;
+// }
 export function updateCartCount() {
-  console.log("updateCartCount");
-  const cartItems = getLocalStorage("so-cart");
-  const count = cartItems ? cartItems.length : 0;
-  document.querySelector("#cart-count").textContent = count;
+  const cartItems = getLocalStorage('so-cart') || [];
+  const cartCountElement = document.getElementById('cart-count');
+  
+  const cartIcon = document.querySelector('.cart svg');
+
+  if (cartCountElement) {
+    cartCountElement.innerText = cartItems.length;
+
+    if (cartIcon) {
+      cartIcon.classList.add('animate-cart');
+
+      setTimeout(() => {
+        cartIcon.classList.remove('animate-cart');
+      }, 10000);
+    }
+  }
 }
