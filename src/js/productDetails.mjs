@@ -32,7 +32,6 @@ function addToCart() {
     cart.push(product);
   }
 
-  cart.push(product);
   setLocalStorage("so-cart", cart);
   updateCartCount();
 }
