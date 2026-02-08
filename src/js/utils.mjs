@@ -1,18 +1,20 @@
+let cartTimeout;
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -21,12 +23,15 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
 // get a parameter from URL
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
+// render a list with a template 
 export function renderListWithTemplate(
   templateFn,
   parentElement,
@@ -41,7 +46,7 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlString.join(""));
 }
 
-let cartTimeout;
+// update cart count
 export function updateCartCount() {
   const cartItems = getLocalStorage('so-cart') || [];
   const cartCountElement = document.getElementById('cart-count');
@@ -69,7 +74,7 @@ export function updateCartCount() {
   }
 }
 
-export function renderWithTemplate(
+export async function renderWithTemplate(
   templateFn,
   parentElement,
   data,
@@ -81,7 +86,7 @@ export function renderWithTemplate(
     parentElement.innerHTML = "";
   }
 
-  let htmlString = templateFn(data); 
+  let htmlString = await templateFn(data); 
   parentElement.insertAdjacentHTML(position, htmlString);
 
   if(callback) {
@@ -89,6 +94,7 @@ export function renderWithTemplate(
   }
 }
 
+// load a template from a file
 function loadTemplate(path){
   // wait what?  we are returning a new function? 
   // this is called currying and can be very helpful.
@@ -101,6 +107,7 @@ function loadTemplate(path){
   };
 }
 
+// load header and footer
 export async function loadHeaderFooter() {
   // header template will still be a function! But one where we have pre-supplied the argument.
   // headerTemplate and footerTemplate will be almost identical, but they will remember the path we passed in when we created them
@@ -109,6 +116,6 @@ export async function loadHeaderFooter() {
   const footerTemplateFn = loadTemplate("/partials/footer.html");
   const headerEl = document.querySelector("#main-header");
   const footerEl = document.querySelector("#main-footer");
-  renderWithTemplate(headerTemplateFn, headerEl);
-  renderWithTemplate(footerTemplateFn, footerEl);
+  await renderWithTemplate(headerTemplateFn, headerEl, {}, updateCartCount);
+  await renderWithTemplate(footerTemplateFn, footerEl);
 }
