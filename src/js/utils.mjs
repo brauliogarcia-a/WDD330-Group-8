@@ -53,8 +53,9 @@ export function updateCartCount() {
   const cartIcon = document.querySelector('.cart svg');
 
   if (cartCountElement) {
-    const itemCount = cartItems.length;
-    cartCountElement.innerText = itemCount;
+    const itemCount = cartItems.reduce((total, item) => total + item.Quantity, 0);
+    cartCountElement.textContent = itemCount;
+    
 
     if (cartIcon) {
       clearTimeout(cartTimeout);
