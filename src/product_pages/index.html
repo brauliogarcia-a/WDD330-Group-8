@@ -20,21 +20,29 @@
       <section class="product-detail">
         <h3 id="productName"></h3>
         <h2 class="divider" id="productNameWithoutBrand"></h2>
-        <img
-          id="productImage"
-          class="divider"
-          src=""
-          alt=""
-        />
-        <p class="product-card__price" id="productFinalPrice"></p>
+        
+        <div class="product-image-container">
+            <span class="discount-flag" id="discountFlag"></span>
+            <img id="productImage" src="" alt="" />
+        </div>
+
+        <div class="product-price-container">
+            <span class="original-price" id="productSuggestedPrice"></span>
+            <p class="product-card__price">
+                <span class="price-label">Now:</span>
+                <span id="productFinalPrice"></span>
+            </p>
+            <p class="savings-text" id="savings"></p>
+        </div>
+
         <p class="product__color" id="productColorName"></p>
         <p class="product__description" id="productDescriptionHtmlSimple"></p>
+
         <div class="product-detail__add">
-          <button id="addToCart" data-id="">Add to Cart</button>
+            <button id="addToCart" data-id="">Add to Cart</button>
         </div>
       </section>
     </main>
-
     <footer id="main-footer"></footer>
   </body>
 </html>
