@@ -38,16 +38,32 @@ function addToCart() {
 
 // function to render the product details
 function renderProductDetails(product) {
-  document.querySelector("#productName").innerText = product.Brand.Name;
-  document.querySelector("#productNameWithoutBrand").innerText =
-    product.NameWithoutBrand;
-  document.querySelector("#productImage").src = product.Image;
-  document.querySelector("#productImage").alt = product.Name;
-  document.querySelector("#productFinalPrice").innerText = "$" + product.FinalPrice;
-  document.querySelector("#productColorName").innerText =
-    product.Colors[0].ColorName;
-  document.querySelector("#productDescriptionHtmlSimple").innerHTML =
-    product.DescriptionHtmlSimple;
-  //add the product Id to the add button! 
-  document.querySelector("#addToCart").dataset.id = product.Id;
+    // Populate standard fields
+    document.getElementById("productName").innerText = product.Brand.Name;
+    document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
+    document.getElementById("productImage").src = product.Image;
+    document.getElementById("productFinalPrice").innerText = `$${product.FinalPrice}`;
+    document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
+    
+    // Discount and Original Price Logic
+    const msrp = product.SuggestedRetailPrice;
+    const final = product.FinalPrice;
+    
+    if (msrp > final) {
+        const savings = (msrp - final).toFixed(2);
+        const percent = Math.round((savings / msrp) * 100);
+        
+        document.getElementById("productSuggestedPrice").innerText = `Price: $${msrp.toFixed(2)}`;
+        document.getElementById("discountFlag").innerText = `${percent}% OFF`;
+        document.getElementById("savings").innerText = `You save $${savings}!`;
+        
+        // Ensure they are visible
+        document.getElementById("productSuggestedPrice").style.display = "block";
+        document.getElementById("discountFlag").style.display = "block";
+    } else {
+        // Hide discount elements if there is no discount
+        document.getElementById("productSuggestedPrice").style.display = "none";
+        document.getElementById("discountFlag").style.display = "none";
+        document.getElementById("savings").innerText = "";
+    }
 }
