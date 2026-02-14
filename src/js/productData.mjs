@@ -1,3 +1,5 @@
+const baseURL = import.meta.env.VITE_SERVER_URL
+
 //convert response to json
 function convertToJson(res) {
   if (res.ok) {
