@@ -39,7 +39,7 @@ function addToCart() {
 // function to render the product details
 function renderProductDetails(product) {
     // Populate standard fields
-    document.getElementById("productName").innerText = product.Brand.Name;
+    document.getElementById("productName").innerText = product.Brand;
     document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
     document.getElementById("productImage").src = product.Image;
     document.getElementById("productFinalPrice").innerText = `$${product.FinalPrice}`;

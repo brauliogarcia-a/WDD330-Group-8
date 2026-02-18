@@ -12,7 +12,7 @@ function productCardTemplate(product) {
             <div class="discount-flag">${discountPercent}% OFF</div>
             
             <img src="${product.Image}" alt="${product.Name}" />
-            <h3 class="card__brand">${product.Brand.Name}</h3>
+            <h3 class="card__brand">${product.Brand}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
             
             <p class="product-card__price">
@@ -35,7 +35,7 @@ async function isImageValid(url) {
 }
 
 // get the list of products
-export default function productList(selector, category) {
+export default async function productList(selector, category) {
     // get the element we will insert the list into from the selector
     const el = document.querySelector(selector);
     // get the list of products 
@@ -46,7 +46,7 @@ export default function productList(selector, category) {
     
     for (const product of products) {
         // check if the image exists
-        const imageExists = isImageValid(product.Image);
+        const imageExists = await isImageValid(product.Image);
         if (imageExists) {
             validProducts.push(product);
         }
