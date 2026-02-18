@@ -9,7 +9,7 @@ function convertToJson(res) {
 
 //get the list of products
 export function getData(category = "tents") {
-  return fetch(`../json/${category}.json`)
+  return fetch(`${import.meta.env.BASE_URL}json/${category}.json`)
     .then(convertToJson)
     .then((data) => data);
 }
