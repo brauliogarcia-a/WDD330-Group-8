@@ -1,17 +1,19 @@
-//convert response to json
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}
+import tents from "../json/tents.json";
+import backpacks from "../json/backpacks.json";
+import sleepingBags from "../json/sleeping-bags.json";
 
-//get the list of products
+// get the list of products
 export function getData(category = "tents") {
-  return fetch(`${import.meta.env.BASE_URL}json/${category}.json`)
-    .then(convertToJson)
-    .then((data) => data);
+  switch (category) {
+    case "tents":
+      return tents;
+    case "backpacks":
+      return backpacks;
+    case "sleeping-bags":
+      return sleepingBags;
+    default:
+      return tents;
+  }
 }
 
 //find a product by id
