@@ -9,7 +9,7 @@ function convertToJson(res) {
 
 //get the list of products
 export function getData(category = "tents") {
-  return fetch(`../json/${category}.json`)
+  return fetch(`/json/${category}.json`)
     .then(convertToJson)
     .then((data) => data);
 }
@@ -17,5 +17,5 @@ export function getData(category = "tents") {
 //find a product by id
 export async function findProductById(id) {
   const products = await getData();
-  return products.find((item) => item.Id === id);
+  return products.find((item) => String(item.Id) === String(id));
 }
