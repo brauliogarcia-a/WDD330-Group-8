@@ -6,11 +6,11 @@ function productCardTemplate(product) {
     // Calculate discount values
     const discountAmount = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2);
     const discountPercent = Math.round((discountAmount / product.SuggestedRetailPrice) * 100);
-
+    const imageUrl = new URL(`../images/${product.Image.split("/images/")[1]}`, import.meta.url).href;
+    
     return `<li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
             <div class="discount-flag">${discountPercent}% OFF</div>
-            
             <img src="${product.Image}" alt="${product.Name}" />
             <h3 class="card__brand">${product.Brand}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
