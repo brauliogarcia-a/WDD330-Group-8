@@ -1,7 +1,12 @@
 import productList from "./productList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
-await loadHeaderFooter();
+async function initPage() {
+  await loadHeaderFooter();
+  productList(".product-list", "tents");
+}
+
+initPage();
 
 productList(".product-list", "tents");
 
