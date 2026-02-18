@@ -8,6 +8,4 @@ async function initPage() {
 
 initPage();
 
-productList(".product-list", "tents");
-
 
