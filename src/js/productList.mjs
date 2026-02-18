@@ -35,18 +35,18 @@ async function isImageValid(url) {
 }
 
 // get the list of products
-export default async function productList(selector, category) {
+export default function productList(selector, category) {
     // get the element we will insert the list into from the selector
     const el = document.querySelector(selector);
     // get the list of products 
-    const products = await getData(category);
+    const products = getData(category);
     // array to store valid products
     const validProducts = [];
     // verify that each product has an image
     
     for (const product of products) {
         // check if the image exists
-        const imageExists = await isImageValid(product.Image);
+        const imageExists = isImageValid(product.Image);
         if (imageExists) {
             validProducts.push(product);
         }
