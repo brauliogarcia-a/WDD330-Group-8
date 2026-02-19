@@ -78,5 +78,3 @@ export function removeFromCart(id) {
   ShoppingCart();
   updateCartCount();
 }
-
-

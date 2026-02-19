@@ -3,7 +3,7 @@ import shoppingCart from "./shoppingCart.mjs";
 import { renderCartTotal, removeFromCart } from "./shoppingCart.mjs";
 
 async function initCartPage() {
-  await loadHeaderFooter();
+  loadHeaderFooter();
   shoppingCart();
   renderCartTotal();
 }

@@ -1,5 +1,6 @@
 import productList from "./productList.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, getParam } from "./utils.mjs";
 
-await loadHeaderFooter();
-productList(".product-list", "tents");
+loadHeaderFooter();
+const category = getParam("category");
+productList(".product-list", category);

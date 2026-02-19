@@ -35,13 +35,26 @@ async function isImageValid(url) {
 }
 
 // get the list of products
-export default function productList(selector, category) {
+export default async function productList(selector, category) {
+    // get the element we will insert the list into from the selector
     const el = document.querySelector(selector);
-    const products = getData(category);
+    // get the list of products 
+    const products = await getData(category);
+    // array to store valid products
+    const validProducts = [];
+    // verify that each product has an image
+    
+    for (const product of products) {
+        // check if the image exists
+        const imageExists = await isImageValid(product.Image);
+        if (imageExists) {
+            validProducts.push(product);
+        }
+    }
 
-    if (!el) return;
+    // limit the number of products
+    const limitedProducts = validProducts.slice(0, 4);
 
-    const limitedProducts = products.slice(0, 4);
-
+    // render out the product list to the element
     renderListWithTemplate(productCardTemplate, el, limitedProducts);
 }

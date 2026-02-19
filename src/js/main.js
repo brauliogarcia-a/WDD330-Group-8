@@ -1,13 +1,11 @@
 import { loadHeaderFooter } from "./utils.mjs";
+import productList from "./productList.mjs";
 
 async function initPage() {
   loadHeaderFooter();
-  await productList(".product-list", "tents");
+  productList(".product-list", "tents");
 }
 
-<<<<<<< HEAD
-=======
 initPage();
->>>>>>> 1684007871037573e226790f3076b4b9c25fcf2f
 
 
