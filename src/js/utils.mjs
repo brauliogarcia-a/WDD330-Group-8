@@ -96,7 +96,7 @@ export async function renderWithTemplate(
 }
 
 // load a template from a file
-const partials = import.meta.glob("../partials/*.html", {
+const partials = import.meta.glob("../public/partials/*.html", {
   query: "?raw",
   import: "default",
   eager: true,
@@ -105,8 +105,8 @@ const partials = import.meta.glob("../partials/*.html", {
 
 // load header and footer
 export async function loadHeaderFooter() {
-  const headerHTML = partials["../partials/header.html"];
-  const footerHTML = partials["../partials/footer.html"];
+  const headerHTML = partials["../public/partials/header.html"];
+  const footerHTML = partials["../public/partials/footer.html"];
 
   const headerEl = document.querySelector("#main-header");
   const footerEl = document.querySelector("#main-footer");
