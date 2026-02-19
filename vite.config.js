@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import path from "path";
 import { fileURLToPath } from "url";
+import path from "path";
 
 
 // ✅ FIX: define __dirname for ES Modules
@@ -12,6 +12,7 @@ export default defineConfig({
   root: "src/",
 
   build: {
+    target: "esnext",
     outDir: "../dist",
     rollupOptions: {
       input: {
