@@ -41,11 +41,9 @@ function renderProductDetails(product) {
     // Populate standard fields
     document.getElementById("productName").innerText = product.Brand;
     document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
-    const imageUrl = new URL(
-    `../images/${product.Image.split("/images/")[1]}`,
-    import.meta.url
-    ).href;
-    document.getElementById("productImage").src = product.Image;
+    const imagePath = product.Image.replace("/images/", "");
+    const imageUrl = new URL(`../images/${imagePath}`, import.meta.url).href;
+    document.getElementById("productImage").src = imageUrl;
     document.getElementById("productFinalPrice").innerText = `$${product.FinalPrice}`;
     document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
     

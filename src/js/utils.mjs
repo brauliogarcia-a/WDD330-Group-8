@@ -97,7 +97,8 @@ export async function renderWithTemplate(
 
 // load a template from a file
 const partials = import.meta.glob("../partials/*.html", {
-  as: "raw",
+  query: "?raw",
+  import: "default",
   eager: true,
 });
 

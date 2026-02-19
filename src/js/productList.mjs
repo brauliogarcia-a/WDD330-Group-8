@@ -6,13 +6,13 @@ function productCardTemplate(product) {
     // Calculate discount values
     const discountAmount = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2);
     const discountPercent = Math.round((discountAmount / product.SuggestedRetailPrice) * 100);
-    const imageUrl = new URL(`../images/${product.Image.split("/images/")[1]}`, import.meta.url).href;
+    const imageUrl = product.Image;
     
     return `<li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
             <div class="discount-flag">${discountPercent}% OFF</div>
-            <img src="${product.Image}" alt="${product.Name}" />
-            <h3 class="card__brand">${product.Brand}</h3>
+            <img src="${imageUrl}" alt="${product.Name}" />
+            <h3 class="card__brand">${product.Brand.Name}</h3>
             <h2 class="card__name">${product.NameWithoutBrand}</h2>
             
             <p class="product-card__price">
@@ -35,26 +35,13 @@ async function isImageValid(url) {
 }
 
 // get the list of products
-export default async function productList(selector, category) {
-    // get the element we will insert the list into from the selector
+export default function productList(selector, category) {
     const el = document.querySelector(selector);
-    // get the list of products 
     const products = getData(category);
-    // array to store valid products
-    const validProducts = [];
-    // verify that each product has an image
-    
-    for (const product of products) {
-        // check if the image exists
-        const imageExists = await isImageValid(product.Image);
-        if (imageExists) {
-            validProducts.push(product);
-        }
-    }
 
-    // limit the number of products
-    const limitedProducts = validProducts.slice(0, 4);
+    if (!el) return;
 
-    // render out the product list to the element
+    const limitedProducts = products.slice(0, 4);
+
     renderListWithTemplate(productCardTemplate, el, limitedProducts);
 }

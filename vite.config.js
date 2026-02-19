@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import path from "path";
 import { fileURLToPath } from "url";
+import path from "path";
 
 
 // ✅ FIX: define __dirname for ES Modules
