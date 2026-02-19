@@ -4,7 +4,7 @@ import { renderCartTotal, removeFromCart } from "./shoppingCart.mjs";
 
 async function initCartPage() {
   await loadHeaderFooter();
-  ShoppingCart();
+  shoppingCart();
   renderCartTotal();
 }
 

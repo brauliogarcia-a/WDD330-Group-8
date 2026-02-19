@@ -95,28 +95,27 @@ export async function renderWithTemplate(
   }
 }
 
-// load a template from a file
+/*load a template from a file
 const partials = import.meta.glob("../public/partials/*.html", {
   query: "?raw",
   import: "default",
   eager: true,
 });
-
+*/
 
 // load header and footer
 export async function loadHeaderFooter() {
-  const headerHTML = partials["../public/partials/header.html"];
-  const footerHTML = partials["../public/partials/footer.html"];
-
   const headerEl = document.querySelector("#main-header");
   const footerEl = document.querySelector("#main-footer");
 
   if (headerEl) {
-    headerEl.innerHTML = headerHTML;
+    const header = await fetch("/partials/header.html").then(res => res.text());
+    headerEl.innerHTML = header;
   }
 
   if (footerEl) {
-    footerEl.innerHTML = footerHTML;
+    const footer = await fetch("/partials/footer.html").then(res => res.text());
+    footerEl.innerHTML = footer;
   }
 
   updateCartCount();
