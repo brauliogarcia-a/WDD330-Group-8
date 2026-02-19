@@ -109,13 +109,13 @@ export async function loadHeaderFooter() {
   const footerEl = document.querySelector("#main-footer");
 
   if (headerEl) {
-    const header = await fetch("/partials/header.html").then(res => res.text());
-    headerEl.innerHTML = header;
+    const res = await fetch("/partials/header.html");
+    headerEl.innerHTML = await res.text();
   }
 
   if (footerEl) {
-    const footer = await fetch("/partials/footer.html").then(res => res.text());
-    footerEl.innerHTML = footer;
+    const res = await fetch("/partials/footer.html");
+    footerEl.innerHTML = await res.text();
   }
 
   updateCartCount();
