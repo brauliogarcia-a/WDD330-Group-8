@@ -4,11 +4,12 @@ import { setLocalStorage, getLocalStorage, updateCartCount } from "./utils.mjs";
 let product = {};
 
 // function to get the details for the current product
-export default async function productDetails(productId, selector) {
+export default async function productDetails(productId, category) {
   // get the details for the current product. findProductById will return a promise! use await or .then() to process it
-  product = await findProductById(productId);
+  product = await findProductById(productId, category);
+  console.log(product);
   // once we have the product details we can render out the HTML
-  renderProductDetails(product);
+  renderProductDetails(product, category);
   // add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
@@ -38,10 +39,12 @@ function addToCart() {
 
 // function to render the product details
 function renderProductDetails(product) {
-    // Populate standard fields
+  console.log(product);  
+  // Populate standard fields
     document.getElementById("productName").innerText = product.Brand.Name;
     document.getElementById("productNameWithoutBrand").innerText = product.NameWithoutBrand;
-    document.getElementById("productImage").src = product.Image;
+    document.getElementById("productImage").src = product.Images.PrimaryExtraLarge; 
+    document.getElementById("productImage").alt = product.Name;
     document.getElementById("productFinalPrice").innerText = `$${product.FinalPrice}`;
     document.getElementById("productDescriptionHtmlSimple").innerHTML = product.DescriptionHtmlSimple;
     
