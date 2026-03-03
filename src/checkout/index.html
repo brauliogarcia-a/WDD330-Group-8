@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="../js/main.js" type="module"></script>
+    <script type="module" src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -16,8 +16,68 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
-    </main>
+     <form name="checkout">
+      <fieldset>
+        <legend>Shipping</legend>
+        <div class="checkout__name">
+          <label for="fname">First Name</label>
+          <input name="fname" id="fname" type="text" required /></br></br>
 
+          <label for="lname">Last Name</label>
+          <input name="lname" id="lname" type="text" required /></br></br>
+        </div>
+        <div class="checkout__address">
+          <label for="street">Street</label>
+          <input name="street" id="street" type="text" required /></br></br>
+
+          <label for="city">City</label>
+          <input name="city" id="city" type="text" required /></br></br>
+
+          <label for="state">State</label>
+          <input name="state" id="state" type="text" required /></br></br>
+
+          <label for="zip">Zip</label>
+          <input name="zip" id="zip" type="text" required pattern="\d{5}" title="Please enter a 5-digit zip code"/></br></br>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Payment</legend>
+        <label for="cardNumber">Card number</label>
+        <input name="cardNumber" id="cardNumber" type="text" pattern="\d{16}" title="Please enter a 16-digit card number" placeholder="1234123412341234" required /></br></br>
+
+        <label for="expiration">Expiration</label>
+        <input name="expiration" id="expiration" type="text" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" title="Format: MM/YY" required /></br></br>
+
+        <label for="code">Security Code</label>
+        <input name="code" id="code" type="text" pattern="\d{3,4}" placeholder="123" title="3-digit code on the back" required /></br></br>
+      </fieldset>
+
+      <fieldset class="checkout-summary">
+        <legend>Order Summary</legend>
+        <ul>
+          <li>
+            <span>Item Subtotal (<span id="num-items"></span>)</span>
+            <p id="cartTotal"></p>
+          </li>
+          <li>
+            <span>Shipping Estimate</span>
+            <p id="shipping"></p>
+          </li>
+          <li>
+            <span>Tax</span>
+            <p id="tax"></p>
+          </li>
+          <li>
+            <strong>Order Total</strong>
+            <p id="orderTotal"></p>
+          </li>
+        </ul>
+      </fieldset>
+
+      <button id="checkoutSubmit" type="submit">Checkout</button>
+      </form>
+    </main>
     <footer id="main-footer"></footer>
   </body>
 </html>

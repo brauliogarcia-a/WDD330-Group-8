@@ -9,6 +9,7 @@ export default function ShoppingCart() {
     return; // Stop the function here
   }
   renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
+  renderCartTotal();
 }
 
 // function to create HTML for each cart item
@@ -17,7 +18,7 @@ function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimaryMedium}"
       alt="${item.Name}"
     />
   </a>
@@ -28,7 +29,7 @@ function cartItemTemplate(item) {
   <p class="cart-card__quantity">qty: ${item.Quantity}</p>
   <p class="cart-card__price">$${subtotal}</p>
   <span class="btn-remove" data-id="${item.Id}">X</span>
-</li>`;
+  </li>`;
 
   return newItem;
 }
@@ -74,9 +75,7 @@ export function removeFromCart(id) {
   setLocalStorage("so-cart", cart);
 
   // re-render
-  renderCartTotal();
   ShoppingCart();
+  renderCartTotal();
   updateCartCount();
 }
-
-

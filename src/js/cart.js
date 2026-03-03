@@ -1,14 +1,9 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import shoppingCart from "./shoppingCart.mjs";
-import { renderCartTotal, removeFromCart } from "./shoppingCart.mjs";
+import {removeFromCart } from "./shoppingCart.mjs";
 
-async function initCartPage() {
-  await loadHeaderFooter();
-  shoppingCart();
-  renderCartTotal();
-}
-
-initCartPage();
+loadHeaderFooter();
+shoppingCart();
 
 // event listener to remove item from cart
 document.addEventListener("click", (event) => {
