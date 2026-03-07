@@ -1,4 +1,5 @@
 import { getLocalStorage } from "./utils.mjs";
+import { alertMessage } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs";
  
 // convert form data to json
@@ -17,7 +18,7 @@ function packageItems(items) {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      quantity: 1
     };
   })
   return simplifiedItems; 
@@ -75,21 +76,54 @@ const checkoutProcess = {
     orderTotal.innerText = "$" + this.orderTotal;
   },
   checkout: async function (form) {
+
     const json = formDataToJSON(form);
-    // add totals, and item details
+
+    // clean card number
+    json.cardNumber = json.cardNumber.replace(/\s/g, "");
+
+    console.log("FORM VALUE:", form.cardNumber.value);
+    console.log("JSON VALUE:", json.cardNumber);
+    console.log("LENGTH:", json.cardNumber.length);
+
+    // calculate totals
+    this.calculateOrderTotal();
+
+    // add totals to json
     json.orderDate = new Date().toISOString();
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
     json.shipping = String(this.shipping);
     json.items = packageItems(this.list);
+
     console.log(json);
+
     try {
+
       const res = await checkout(json);
+
       console.log(res);
+
+      // clear cart
+      localStorage.removeItem("so-cart");
+
+      // reset cart counter
+      const cartCount = document.querySelector("#cart-count");
+      if (cartCount) {
+        cartCount.textContent = 0;
+      }
+
+      window.location.href = "/checkout/success.html";
+
     } catch (err) {
-      console.log(err);
+
+      console.error(err);
+
+      alertMessage(JSON.stringify(err.message));
+
     }
-  },
+
+  }
 };
 
 export default checkoutProcess;

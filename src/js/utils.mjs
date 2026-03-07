@@ -48,9 +48,9 @@ export function renderListWithTemplate(
 
 // update cart count
 export function updateCartCount() {
-  const cartItems = getLocalStorage('so-cart') || [];
-  const cartCountElement = document.getElementById('cart-count');
-  const cartIcon = document.querySelector('.cart svg');
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartCountElement = document.getElementById("cart-count");
+  const cartIcon = document.querySelector(".cart svg");
 
   if (cartCountElement) {
     const itemCount = cartItems.reduce((total, item) => total + item.Quantity, 0);
@@ -61,15 +61,15 @@ export function updateCartCount() {
       clearTimeout(cartTimeout);
 
       if (itemCount > 0) {
-        cartIcon.classList.remove('animate-cart');
+        cartIcon.classList.remove("animate-cart");
         void cartIcon.offsetWidth; 
-        cartIcon.classList.add('animate-cart');
+        cartIcon.classList.add("animate-cart");
 
         cartTimeout = setTimeout(() => {
-          cartIcon.classList.remove('animate-cart');
+          cartIcon.classList.remove("animate-cart");
         }, 30000);
       } else {
-        cartIcon.classList.remove('animate-cart');
+        cartIcon.classList.remove("animate-cart");
       }
     }
   }
@@ -114,4 +114,34 @@ export async function loadHeaderFooter() {
   await renderWithTemplate(headerTemplateFn, headerEl);
   await renderWithTemplate(footerTemplateFn, footerEl);
   updateCartCount();
+}
+
+// Alert message
+export function alertMessage(message, scroll = true) {
+
+  const alert = document.createElement("div");
+
+  alert.classList.add("alert");
+
+  alert.innerHTML = `
+    <p>${message}</p>
+    <span class="close">X</span>
+  `;
+
+  const main = document.querySelector("main");
+
+  alert.addEventListener("click", function(e) {
+
+    if (e.target.classList.contains("close")) {
+      main.removeChild(this);
+    }
+
+  });
+
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo(0,0);
+  }
+
 }
