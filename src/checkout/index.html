@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="../js/checkout.js" type="module"></script>
+    <script type="module" src="../js/checkout.js"></script>
   </head>
 
   <body>
@@ -21,20 +21,20 @@
         <legend>Shipping</legend>
         <div class="checkout__name">
           <label for="fname">First Name</label>
-          <input name="fname" id="fname" type="text" required /></br></br>
+          <input name="fname" id="fname" type="text" required /><br></br>
 
           <label for="lname">Last Name</label>
-          <input name="lname" id="lname" type="text" required /></br></br>
+          <input name="lname" id="lname" type="text" required /><br></br>
         </div>
         <div class="checkout__address">
           <label for="street">Street</label>
-          <input name="street" id="street" type="text" required /></br></br>
+          <input name="street" id="street" type="text" required /><br></br>
 
           <label for="city">City</label>
-          <input name="city" id="city" type="text" required /></br></br>
+          <input name="city" id="city" type="text" required /><br></br>
 
           <label for="state">State</label>
-          <input name="state" id="state" type="text" required /></br></br>
+          <input name="state" id="state" type="text" required /><br></br>
 
           <label for="zip">Zip</label>
           <input name="zip" id="zip" type="text" required pattern="\d{5}" title="Please enter a 5-digit zip code"/></br></br>
@@ -75,7 +75,7 @@
         </ul>
       </fieldset>
 
-      <button id="checkoutSubmit" type="submit">Checkout</button>
+      <button id="checkoutSubmit" type="button">Checkout</button>
       </form>
     </main>
     <footer id="main-footer"></footer>
