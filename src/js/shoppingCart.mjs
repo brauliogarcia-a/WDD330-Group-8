@@ -16,19 +16,27 @@ export default function ShoppingCart() {
 function cartItemTemplate(item) {
   const subtotal = (item.FinalPrice * item.Quantity).toFixed(2);
   const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
+  <div class="cart-card__image">
     <img
       src="${item.Images?.PrimaryMedium || item.Image}"
       alt="${item.Name}"
     />
-  </a>
-  <a href="#">
+  </div>
+  <div class="cart-card__details">
     <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
-  <p class="cart-card__price">$${subtotal}</p>
-  <span class="btn-remove" data-id="${item.Id}">X</span>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  </div>
+  <div class="cart-card__actions">
+    <div class="cart-card__quantity-controls">
+      <button class="btn-quantity" data-action="decrease" data-id="${item.Id}">-</button>
+      <span class="quantity-display">${item.Quantity}</span>
+      <button class="btn-quantity" data-action="increase" data-id="${item.Id}">+</button>
+    </div>
+    <div class="cart-card__price-remove">
+      <p class="cart-card__price">$${subtotal}</p>
+      <button class="btn-remove" data-id="${item.Id}">×</button>
+    </div>
+  </div>
   </li>`;
 
   return newItem;
@@ -78,4 +86,31 @@ export function removeFromCart(id) {
   ShoppingCart();
   renderCartTotal();
   updateCartCount();
+}
+
+// function to change quantity of item in cart
+export function changeQuantity(id, change) {
+  const cart = getLocalStorage("so-cart");
+  
+  // find the item
+  const item = cart.find((item) => item.Id === id);
+  
+  if (item) {
+    // update quantity
+    item.Quantity = Math.max(1, item.Quantity + change);
+    
+    // if quantity would be 0 or less, remove the item instead
+    if (item.Quantity <= 0) {
+      removeFromCart(id);
+      return;
+    }
+    
+    // Update the cart
+    setLocalStorage("so-cart", cart);
+    
+    // re-render
+    ShoppingCart();
+    renderCartTotal();
+    updateCartCount();
+  }
 }

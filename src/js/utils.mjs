@@ -75,6 +75,17 @@ export function updateCartCount() {
   }
 }
 
+// update wishlist count
+export function updateWishlistCount() {
+  const wishlistItems = getLocalStorage("so-wishlist") || [];
+  const wishlistCountElement = document.getElementById("wishlist-count");
+
+  if (wishlistCountElement) {
+    const itemCount = wishlistItems.length;
+    wishlistCountElement.textContent = itemCount;
+  }
+}
+
 export async function renderWithTemplate(
   templateFn,
   parentElement,
@@ -114,14 +125,16 @@ export async function loadHeaderFooter() {
   await renderWithTemplate(headerTemplateFn, headerEl);
   await renderWithTemplate(footerTemplateFn, footerEl);
   updateCartCount();
+  updateWishlistCount();
 }
 
 // Alert message
-export function alertMessage(message, scroll = true) {
+export function alertMessage(message, scroll = true, type = "error") {
 
   const alert = document.createElement("div");
 
   alert.classList.add("alert");
+  alert.classList.add(`alert-${type}`);
 
   alert.innerHTML = `
     <p>${message}</p>
@@ -144,4 +157,62 @@ export function alertMessage(message, scroll = true) {
     window.scrollTo(0,0);
   }
 
+}
+
+// render breadcrumbs based on current page
+export function renderBreadcrumbs(pageType, category = null, productName = null) {
+  const breadcrumbsEl = document.getElementById("breadcrumbs");
+  if (!breadcrumbsEl) return;
+
+  let breadcrumbs = [];
+
+  // Always start with Home
+  breadcrumbs.push({ text: "Home", url: "../index.html" });
+
+  switch (pageType) {
+    case "category":
+      if (category) {
+        const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+        breadcrumbs.push({ text: categoryName, url: null }); // Current page
+      }
+      break;
+
+    case "product":
+      if (category) {
+        const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+        breadcrumbs.push({ text: categoryName, url: `../product-list/index.html?category=${category}` });
+      }
+      if (productName) {
+        breadcrumbs.push({ text: productName, url: null }); // Current page
+      }
+      break;
+
+    case "cart":
+      breadcrumbs.push({ text: "Cart", url: null }); // Current page
+      break;
+
+    case "checkout":
+      breadcrumbs.push({ text: "Cart", url: "../cart/index.html" });
+      breadcrumbs.push({ text: "Checkout", url: null }); // Current page
+      break;
+
+    case "wishlist":
+      breadcrumbs.push({ text: "Wishlist", url: null }); // Current page
+      break;
+  }
+
+  const breadcrumbHtml = `
+    <ol>
+      ${breadcrumbs.map((crumb, index) => `
+        <li>
+          ${crumb.url && index < breadcrumbs.length - 1
+            ? `<a href="${crumb.url}">${crumb.text}</a>`
+            : `<span class="current">${crumb.text}</span>`
+          }
+        </li>
+      `).join("")}
+    </ol>
+  `;
+
+  breadcrumbsEl.innerHTML = breadcrumbHtml;
 }

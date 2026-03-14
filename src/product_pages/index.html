@@ -9,7 +9,9 @@
   </head>
   <body>
     <header class="divider" id="main-header"></header>
+    <nav class="breadcrumbs" id="breadcrumbs"></nav>
     <main class="divider">
+      <div id="productError" class="alert" style="display:none;"></div>
       <section class="product-detail">
         <h3 id="productName"></h3>
         <h2 class="divider" id="productNameWithoutBrand"></h2>
@@ -29,6 +31,7 @@
         <p class="product__description" id="productDescriptionHtmlSimple"></p>
         <div class="product-detail__add">
             <button id="addToCart" data-id="">Add to Cart</button>
+            <button id="addToWishlist" data-id="">Add to Wishlist</button>
         </div>
       </section>
     </main>
