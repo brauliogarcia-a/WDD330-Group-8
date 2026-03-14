@@ -1,7 +1,8 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, renderBreadcrumbs } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
 
 loadHeaderFooter();
+renderBreadcrumbs("checkout");
 
 checkoutProcess.init("so-cart", ".checkout-summary");
 
