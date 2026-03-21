@@ -358,3 +358,40 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+/* Checkout Button Style */
+.checkout-button {
+  display: inline-block;
+  background-color: #28a745; /* verde */
+  color: white;
+  padding: 12px 20px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none; /* quita el subrayado */
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover (cuando pasas el mouse) */
+.checkout-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Active (cuando haces click) */
+.checkout-button:active {
+  transform: scale(0.98);
+}
+
+/* Opcional: centrarlo */
+#checkout {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
