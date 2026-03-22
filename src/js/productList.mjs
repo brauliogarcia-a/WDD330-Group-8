@@ -34,6 +34,19 @@ export default async function productList(selector, category) {
     // get the list of products 
     const products = await getProductsByCategory(category);
 
+    //Search Bar
+    const params = new URLSearchParams(window.location.search);
+    const searchQuery = params.get("search");
+
+    let filteredProducts = products;
+
+    if (searchQuery) {
+        filteredProducts = products.filter(product =>
+            product.Name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }
+
+    // Get the list of products continuation
     renderListWithTemplate(productCardTemplate, el, products);
     document.querySelector(".title").innerHTML = category;
 }
