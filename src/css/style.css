@@ -549,3 +549,24 @@ footer {
 .search button:hover {
   background: #3a4a1a;
 }
+
+/* Responsive images */
+.product-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 190px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 520px) {
+  .product-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .product-card img {
+    max-height: 220px;
+  }
+}
