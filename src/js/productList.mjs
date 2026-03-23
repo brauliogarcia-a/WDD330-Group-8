@@ -28,6 +28,27 @@ function productCardTemplate(product) {
     </li>`;
 }
 
+//This sorts the products depending on the selected option
+function sortProducts(products, sortOption) {
+    const sortedProducts = [...products];
+
+    if (sortOption === "name-asc") {
+        sortedProducts.sort((a, b) =>
+            a.NameWithoutBrand.localeCompare(b.NameWithoutBrand)
+        );
+    } else if (sortOption === "name-desc") {
+        sortedProducts.sort((a, b) =>
+            b.NameWithoutBrand.localeCompare(a.NameWithoutBrand)
+        );
+    } else if (sortOption === "price-asc") {
+        sortedProducts.sort((a, b) => a.FinalPrice - b.FinalPrice);
+    } else if (sortOption === "price-desc") {
+        sortedProducts.sort((a, b) => b.FinalPrice - a.FinalPrice);
+    }
+
+    return sortedProducts;
+}
+
 //Get the list of products and renders them on the page
 export default async function productList(selector, category) {
 
@@ -78,11 +99,20 @@ export default async function productList(selector, category) {
         return;
     }
 
-    //Render the final product list
-    renderListWithTemplate(productCardTemplate, el, filteredProducts);
 
-    //Update page title old
-    //document.querySelector(".title").innerHTML = category;
+    //Function to render products with current sort
+    function renderSortedProducts() {
+        const sortSelect = document.querySelector("#sortProducts");
+        const sortOption = sortSelect ? sortSelect.value : "default";
+
+        const sortedProducts = sortProducts(filteredProducts, sortOption);
+
+        el.innerHTML = "";
+        renderListWithTemplate(productCardTemplate, el, sortedProducts);
+    }
+
+    //First render
+    renderSortedProducts();
 
     //Update the page title
     const titleElement = document.querySelector(".title");
@@ -91,4 +121,8 @@ export default async function productList(selector, category) {
             ? `Search: ${searchQuery}`
             : category;
     }
+
+    // Listen for sort changes
+    const sortSelect = document.querySelector("#sortProducts");
+    sortSelect?.addEventListener("change", renderSortedProducts);
 }
