@@ -1,4 +1,5 @@
-import { getProductsByCategory } from "./externalServices.mjs";
+//Import
+import { getProductsByCategory, getAllProducts } from "./externalServices.mjs";
 import { renderListWithTemplate } from "./utils.mjs";
 
 // template for the product card list
@@ -27,26 +28,67 @@ function productCardTemplate(product) {
     </li>`;
 }
 
-// get the list of products
+//Get the list of products and renders them on the page
 export default async function productList(selector, category) {
-    // get the element we will insert the list into from the selector
-    const el = document.querySelector(selector);
-    // get the list of products 
-    const products = await getProductsByCategory(category);
 
-    //Search Bar
+    //Get the element we will insert the list into from the selector
+    const el = document.querySelector(selector);
+
+    //Read the search word from the url
     const params = new URLSearchParams(window.location.search);
     const searchQuery = params.get("search");
 
-    let filteredProducts = products;
+    let products = [];
 
+    //If there is a search word, get ALL products
+    //This makes the search global by product name
+    if (searchQuery) {
+        products = await getAllProducts();
+    }
+    //If there is no search word, keep the old category behavior
+    else if (category) {
+        products = await getProductsByCategory(category);
+    }
+    //If there is no search and no category, show a message
+    else {
+        el.innerHTML = `<p>No category or search was provided.</p>`;
+        return;
+    }
+
+    let filteredProducts = products;
+    
+    //Advanced Filter
     if (searchQuery) {
         filteredProducts = products.filter(product =>
-            product.Name.toLowerCase().includes(searchQuery.toLowerCase())
+            product.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.Brand.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.NameWithoutBrand.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
 
-    // Get the list of products continuation
-    renderListWithTemplate(productCardTemplate, el, products);
-    document.querySelector(".title").innerHTML = category;
+    // If no products match, show message
+    if (filteredProducts.length === 0) {
+        el.innerHTML = `<p>No products found for "${searchQuery}"</p>`;
+
+        const titleElement = document.querySelector(".title");
+        if (titleElement) {
+            titleElement.innerHTML = `Search: ${searchQuery}`;
+        }
+
+        return;
+    }
+
+    //Render the final product list
+    renderListWithTemplate(productCardTemplate, el, filteredProducts);
+
+    //Update page title old
+    //document.querySelector(".title").innerHTML = category;
+
+    //Update the page title
+    const titleElement = document.querySelector(".title");
+    if (titleElement) {
+        titleElement.innerHTML = searchQuery
+            ? `Search: ${searchQuery}`
+            : category;
+    }
 }
